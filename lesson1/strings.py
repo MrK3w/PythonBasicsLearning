@@ -5,6 +5,9 @@ result = 100/777
 #print(lineOfText[1:])
 #print(lineOfText[:2])
 
+sign = 'i'
+print(type(sign))
+
 #Take index from behind and then select everything before it
 #print(lineOfText[:-2])
 
