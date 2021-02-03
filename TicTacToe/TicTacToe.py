@@ -13,15 +13,17 @@ def clear():
 
 def printGameBoard(listOfSigns):
     clear()
+
     i = 0
     j = 0
-    print('-' * 7)
+    print("#|0|1|2|")
+    print('-' * 8)
     while(i < 3):
-        print("|",end = "")
+        print(f"{i}|",end = "")
         while(j < 3):
             print(listOfSigns[i][j],end = "|")
             j += 1
-        print('\n' + '-' * 7)
+        print('\n' + '-' * 8)
         i += 1
         j = 0
     
@@ -86,10 +88,10 @@ def CheckRow():
 def IsItWin(playerOne):
     if CheckRow() or CheckLine() or CheckDiagonal():
         if playerOne:
-            print('X win')
+            print('x win')
             return True
         else:
-            print('O win')
+            print('o win')
             return True
     return False
 
@@ -106,24 +108,24 @@ def IsPositionValid(positions):
 
 def PlayGame():
     #list of game plan
+    clear()
     global gameBoard
     gameBoard =  [[" "," "," "],[" "," "," "],[" "," "," "]]
     #player one(X)
     playerOne = True
     
-    print("TIC TAC TOE GAME STARTS X!")
+    print("TIC TAC TOE GAME STARTS x!")
 
     #Game is running till one player wins or game board is full and then it's a draw
     while True:
         positions = UserInput()
         #put sign on cell selected by user if player one is true than it's a X otherwise O
         if playerOne:
-            gameBoard[positions[0]][positions[1]] = 'X'
+            gameBoard[positions[0]][positions[1]] = 'x'
         else: 
-            gameBoard[positions[0]][positions[1]] = 'O'
+            gameBoard[positions[0]][positions[1]] = 'o'
         
         #switch players
-        
         printGameBoard(gameBoard) 
         if(IsItWin(playerOne)):
             break
