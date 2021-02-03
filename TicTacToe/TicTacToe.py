@@ -118,20 +118,13 @@ def play_game():
     # list of game plan
     global gameBoard
     gameBoard = [[" ", " ", " "], [" ", " ", " "], [" ", " ", " "]]
-    question = "Player do you want to play like x or o?"
-    # player one(X)
-    while True:
-        player_choice = input(question).lower()
-        if player_choice == 'x':
-            player_one = True
-            break
-        elif player_choice == 'o':
-            player_one = False
-            break
-    clear()
-    print("TIC TAC TOE GAME STARTS!")
-
+    player_one = choose_players_signs()
     # Game is running till one player wins or game board is full and then it's a draw
+    run_game(player_one)
+
+
+def run_game(player_one):
+    print("TIC TAC TOE GAME STARTS!")
     while True:
         positions = user_input()
         # put sign on cell selected by user if player one is true than it's a X otherwise O
@@ -148,11 +141,30 @@ def play_game():
 
         if is_it_draw():
             break
+    play_again()
+
+
+def play_again():
     users_answer = (input("Do you want to play again? Y/N: ")).upper()
     if users_answer == 'Y':
         play_game()
     else:
         print("Thanks for playing!")
+
+
+def choose_players_signs():
+    question = "Player do you want to play like x or o?"
+    # player one(X)
+    while True:
+        player_choice = input(question).lower()
+        if player_choice == 'x':
+            player_one = True
+            break
+        elif player_choice == 'o':
+            player_one = False
+            break
+    clear()
+    return player_one
 
 
 play_game()
