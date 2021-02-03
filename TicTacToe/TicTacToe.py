@@ -72,7 +72,6 @@ def CheckLine():
         i = 0
     return False
 
-
 def CheckDiagonal():
     firstCross = [gameBoard[0][0],gameBoard[1][1], gameBoard[2][2]]
     secondCross = [gameBoard[0][2],gameBoard[1][1], gameBoard[2][0]]
@@ -94,7 +93,6 @@ def IsItWin(playerOne):
             print('o win')
             return True
     return False
-
 
 def IsPositionValid(positions):
     #if position it's out of game boards returns false
