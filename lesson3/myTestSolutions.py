@@ -27,7 +27,7 @@ def multiply(numbers):
     return sum
 
 def palindrome(s):
-    return s[::1] == s[::-1]
+    return s == s[::-1]
 
 def char_range(c1, c2):
     """Generates the characters from `c1` to `c2`, inclusive."""
@@ -41,8 +41,8 @@ def ispangram(str1):
         if character in char_range('a','z') and character not in alphabetList:
             alphabetList.append(character)
     if len(alphabetList) == 26:
-        return True
+        return True 
     else:
         return False
  
-print(ispangram('The quick brown fox jumps over the lazy dog'))
+print(ran_check(2,3,5))
