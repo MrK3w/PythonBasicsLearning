@@ -108,13 +108,20 @@ def IsPositionValid(positions):
 
 def PlayGame():
     #list of game plan
-    clear()
     global gameBoard
     gameBoard =  [[" "," "," "],[" "," "," "],[" "," "," "]]
+    question = "Player do you want to play like x or o?"
     #player one(X)
-    playerOne = True
-    
-    print("TIC TAC TOE GAME STARTS x!")
+    while True:
+        playerChoice = input(question).lower()
+        if playerChoice == 'x':
+            playerOne = True
+            break
+        elif playerChoice == 'o':
+            playerOne = False
+            break
+    clear()
+    print("TIC TAC TOE GAME STARTS!")
 
     #Game is running till one player wins or game board is full and then it's a draw
     while True:
