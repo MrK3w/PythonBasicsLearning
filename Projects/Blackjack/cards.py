@@ -48,54 +48,71 @@ def user_input():
     else:
         return False
 
+def get_money_input():
+    global money
+    betted_money = 0
+    print(f"You have {money}$")
+    while True:
+        try:
+            betted_money = int(input("Please enter money you want to bet: "))
+        except ValueError:
+            print("Sorry, I didn't understand that.")
+            continue
+        else:
+            if(money >= betted_money):
+                break
+            else:
+                print("You don't have enough money to bet")
+    return betted_money
 
-def start_game():
-    global players_win
-    global dealers_win
-    over = False
+def start_game(betted_money):
+    global money
+    overeached_cards_value = False
     player_hand = PlayersHand("Jakub")
     dealers_hand = PlayersHand()
+    #While till users dont want to draw another card
     while True:
+        #draw one card
         player_hand.get_card()
+        #check if 21 is not overleaped
         if overleaped(player_hand.sum_of_cards):
-            over = True
             print("dealer win player overlaped")
-            dealers_win +=1
-            break
+            money -= betted_money
+            return
         dealers_hand.get_card()
         if overleaped(dealers_hand.sum_of_cards):
-            over = True
             print("user win dealer overlaped")
-            players_win += 1
-            break
+            money += betted_money
+            return
         print("Do you want to draw another card?",end="")
         if user_input() is False:
             break
         clear()
-    print(f"{player_hand.user}'s total value is: {player_hand.sum_of_cards}")
-    print(f"{dealers_hand.user}'s total value is: {dealers_hand.sum_of_cards}\n")
-    if over == False:
-        while(dealers_hand.sum_of_cards < player_hand.sum_of_cards):
-            dealers_hand.get_card()
-            print(f"{player_hand.user}'s total value is: {player_hand.sum_of_cards}")
-            print(f"{dealers_hand.user}'s total value is: {dealers_hand.sum_of_cards}\n")
-            if overleaped(dealers_hand.sum_of_cards):
-                print("Player's wins")
-                players_win += 1
-    if player_hand.sum_of_cards > dealers_hand.sum_of_cards and over == False:
-        print("Player's wins")
-        players_win += 1
-    elif dealers_hand.sum_of_cards > player_hand.sum_of_cards and over == False:
-        print("Dealers wins")
-        dealers_win +=1
+
+    #if dealer has less card value than user he can draw another cards till he wins or overreach
+    while(dealers_hand.sum_of_cards < player_hand.sum_of_cards):
+        dealers_hand.get_card()
+        if overleaped(dealers_hand.sum_of_cards):
+            print("Player's wins")
+            money += betted_money
+            return
+        elif dealers_hand.sum_of_cards > player_hand.sum_of_cards:
+            print("Dealers wins")
+            money -= betted_money
+        elif player_hand.sum_of_cards == dealers_hand.sum_of_cards:
+            print("BUST!")
 
 cards_pack = Cards()
-players_win = 0
-dealers_win = 0
+money = 100
 while(True): 
-    print(f"Players wins: {players_win} Dealers wins: {dealers_win} ")   
+    print(f"You start with: {money}$.") 
     print("Do you want to play?", end= "")
     if user_input() == False:
         break
-    start_game()
+    betted_money = get_money_input()
+    start_game(betted_money)
+    if money <= 0:
+        print("You are out of balance")
+        break
 
+print(f"You ended with: {money}$.!")
